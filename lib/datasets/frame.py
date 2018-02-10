@@ -25,10 +25,10 @@ import math
 
 
 class Frame(imdb):
-    def __init__(self, image_set):
+    def __init__(self, classname, image_set):
         imdb.__init__(self, 'frame_' + image_set)
         self._image_set = image_set
-        self._data_path = osp.join(cfg.DATA_DIR, 'frame', 'hand', image_set)
+        self._data_path = osp.join(cfg.DATA_DIR, 'frame', classname, image_set)
         self._classes = ('__background__',  # always index 0
                          'quadrilateral')
         self._class_to_ind = dict(list(zip(self.classes, list(range(self.num_classes)))))
@@ -209,6 +209,7 @@ class Frame(imdb):
                 if panel_info == "":
                     continue
                 coordinates = list(map(float, panel_info.split()))
+                #coordinates = re.split(' ', panel_info.split())
                 if cfg.NEW_GT:
                     shape = panel_info.split()[0].strip()
                     if shape == 'rect':

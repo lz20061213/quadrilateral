@@ -40,8 +40,9 @@ for year in ['2015']:
 for split in ['train_all', 'train', 'train_manga109', 'test',
               'test_8703', 'test_manga109', 'test_small', 'test_dragonball',
               'test_20w', 'test_2000']:
-    name = 'frame_{}'.format(split)
-    __sets[name] = (lambda split=split: Frame(split))
+    for classname in ['shape', 'hand', 'plane']:
+        name = 'frame_{}'.format(split)
+        __sets[name] = (lambda split=split: Frame(classname, split))
 
 for split in ['train', 'train_13', 'train_coco', 'train_17', 'test_17', 
               'valid_17', 'train_MSRA-TD500', 'test_MSRA-TD500', 'test', 

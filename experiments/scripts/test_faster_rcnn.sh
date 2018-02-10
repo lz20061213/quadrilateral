@@ -40,7 +40,10 @@ case ${DATASET} in
     TRAIN_IMDB="frame_train"
     TEST_IMDB="frame_test"
     PT_DIR="frame"
-    ITERS=100000
+    ITERS=100000./
+    ANCHORS="[4,8,16,32]"
+    RATIOS="[0.5,1,2]"
+    STEPSIZE=[60000]
     ;;
 	db42)
     TRAIN_IMDB="frame_train"
@@ -163,13 +166,13 @@ if [[ ! -z  ${EXTRA_ARGS_SLUG}  ]]; then
     --cfg experiments/cfgs/${NET}.yml \
     --tag ${EXTRA_ARGS_SLUG} \
     --net ${NET} \
-    --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} ${EXTRA_ARGS}
+    --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS}
 else
   CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/test_net.py \
     --imdb ${TEST_IMDB} \
     --model ${NET_FINAL} \
     --cfg experiments/cfgs/${NET}.yml \
     --net ${NET} \
-    --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} ${EXTRA_ARGS}
+    --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS}
 fi
 
